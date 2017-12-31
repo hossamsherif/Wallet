@@ -257,7 +257,7 @@ open class WalletView: UIView {
      */
     open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
-        if context == &observerContext {
+        if context == &WalletView.observerContext {
             
             if keyPath == #keyPath(UIScrollView.bounds) {
                 layoutWalletView()
@@ -272,7 +272,7 @@ open class WalletView: UIView {
     
     // MARK: Private methods
     
-    var observerContext = 8
+    static var observerContext = 8
     
     deinit {
         scrollView.removeObserver(self, forKeyPath: #keyPath(UIScrollView.frame))
@@ -284,8 +284,8 @@ open class WalletView: UIView {
         
         let options: NSKeyValueObservingOptions = [.new, .old, .initial]
         
-        scrollView.addObserver(self, forKeyPath: #keyPath(UIScrollView.frame), options: options, context: &observerContext)
-        scrollView.addObserver(self, forKeyPath: #keyPath(UIScrollView.bounds), options: options, context: &observerContext)
+        scrollView.addObserver(self, forKeyPath: #keyPath(UIScrollView.frame), options: options, context: &WalletView.observerContext)
+        scrollView.addObserver(self, forKeyPath: #keyPath(UIScrollView.bounds), options: options, context: &WalletView.observerContext)
     }
     
     func prepareScrollView() {
